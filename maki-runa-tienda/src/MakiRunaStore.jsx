@@ -282,6 +282,44 @@ export default function MakiRunaStore() {
         .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 300; color: var(--crema); letter-spacing: 0.2em; text-transform: uppercase; }
         .footer-text { font-size: 10px; color: var(--gris); letter-spacing: 0.08em; line-height: 1.7; }
 
+
+        /* GALLERY */
+        .det-gallery { width: 100%; }
+        .det-main-img {
+          width: 100%; aspect-ratio: 3/4; object-fit: cover;
+          display: block; cursor: zoom-in;
+        }
+        .det-thumbs {
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          gap: 6px; padding: 8px 0 0;
+        }
+        .det-thumb {
+          width: 100%; aspect-ratio: 1/1; object-fit: cover;
+          cursor: pointer; opacity: 0.5;
+          border: 2px solid transparent;
+          transition: opacity 0.2s, border-color 0.2s;
+        }
+        .det-thumb.active { opacity: 1; border-color: var(--terracota); }
+
+        /* LIGHTBOX */
+        .lightbox {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.93);
+          z-index: 9999; display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-img { max-width: 100vw; max-height: 100vh; object-fit: contain; }
+        .lightbox-close {
+          position: absolute; top: 16px; right: 20px;
+          background: none; border: none; color: #fff;
+          font-size: 32px; cursor: pointer; line-height: 1;
+        }
+        .lightbox-nav {
+          position: absolute; top: 50%; transform: translateY(-50%);
+          background: rgba(255,255,255,0.15); border: none; color: #fff;
+          font-size: 32px; padding: 12px 18px; cursor: pointer;
+          border-radius: 4px; line-height: 1;
+        }
+        .lightbox-prev { left: 10px; }
+        .lightbox-next { right: 10px; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         .fade-up { animation: fadeUp 0.35s ease forwards; }
       `}</style>
@@ -399,22 +437,23 @@ export default function MakiRunaStore() {
           <div className="fade-up">
             {productoActivo.imagenes?.length ? (
               <div className="det-gallery">
+                {/* Imagen principal: solo muestra la foto activa */}
                 <img
                   src={productoActivo.imagenes[fotoActiva]}
                   alt={productoActivo.nombre}
                   className="det-main-img"
                   onClick={() => setLightboxAbierto(true)}
                 />
+                {/* Miniaturas: 4 fijas, sin map */}
                 <div className="det-thumbs">
-                  {productoActivo.imagenes.map((src, i) => (
-                    <img
-                      key={i}
-                      src={src}
-                      alt=""
-                      className={`det-thumb ${fotoActiva === i ? "active" : ""}`}
-                      onClick={() => setFotoActiva(i)}
-                    />
-                  ))}
+                  <img src={productoActivo.imagenes[0]} alt="Foto 1" onClick={() => setFotoActiva(0)}
+                    className={`det-thumb${fotoActiva === 0 ? " active" : ""}`} />
+                  <img src={productoActivo.imagenes[1]} alt="Foto 2" onClick={() => setFotoActiva(1)}
+                    className={`det-thumb${fotoActiva === 1 ? " active" : ""}`} />
+                  <img src={productoActivo.imagenes[2]} alt="Foto 3" onClick={() => setFotoActiva(2)}
+                    className={`det-thumb${fotoActiva === 2 ? " active" : ""}`} />
+                  <img src={productoActivo.imagenes[3]} alt="Foto 4" onClick={() => setFotoActiva(3)}
+                    className={`det-thumb${fotoActiva === 3 ? " active" : ""}`} />
                 </div>
               </div>
             ) : (
