@@ -93,8 +93,6 @@ export default function MakiRunaStore() {
         .header-brand { display: flex; align-items: center; gap: 12px; }
         .header-logo-img {
           width: 42px; height: 42px; object-fit: contain;
-          filter: brightness(0) invert(1) sepia(1) saturate(1.5) hue-rotate(5deg);
-          opacity: 0.88;
         }
         .header-logo {
           font-family: 'Cormorant Garamond', serif;
@@ -329,7 +327,7 @@ export default function MakiRunaStore() {
         {/* HEADER */}
         <header className="header">
           <div className="header-brand">
-            <LogoImg className="header-logo-img" />
+            <img src="/logo-maki-runa.png" alt="Maki Runa" className="header-logo-img" />
             <div>
               <div className="header-logo">Maki Runa</div>
               <div className="header-sub">Textiles artesanales · NOA</div>
