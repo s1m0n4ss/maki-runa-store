@@ -26,7 +26,23 @@ const PRODUCTOS = [
     whatsapp: WHATSAPP,
     disponible: true,
   },
-  // Para agregar una prenda, copiá el bloque de arriba y cambiá el id y los datos
+  {
+    id: 2,
+    nombre: "Killa",
+    subtitulo: "Pashmina artesanal · Salta, Argentina",
+    descripcion: "Killa fue tejida artesanalmente en lana de oveja, combinando el negro intenso de la fibra teñida, el blanco natural sin intervención y un magenta profundo trabajado con anilina. Una pieza creada en telar, donde cada franja nace de la tensión entre el color y el silencio, entre lo contemporáneo y lo ancestral.",
+    materiales: "100% lana de oveja",
+    cuidados: "Lavar a mano con jabón neutro o especial para lana · No usar cloro · Lavar colores por separado · No centrifugar ni estrujar · Secar extendido a la sombra · Planchar suave con un paño apenas húmedo",
+    imagenes: ["/killa-1.jpg", "/killa-2.jpg", "/killa-3.jpg", "/killa-4.jpg"],
+    medidas: "190 cm de largo · 70 cm de ancho",
+    precio: 169000,
+    precioHabitual: 189000,
+    talles: ["Único"],
+    colores: ["Negro / Blanco / Magenta"],
+    linkMercadoPago: "https://mpago.la/2U7XqHJ",
+    whatsapp: WHATSAPP,
+    disponible: true,
+  },
 ];
 
 // ════════════════════════════════════════════════════
