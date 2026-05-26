@@ -24,6 +24,22 @@ const PRODUCTOS = [
     whatsapp: WHATSAPP,
     disponible: true,
   },
+  {
+    id: 2,
+    nombre: "Allpa",
+    subtitulo: "Bolso artesanal · Noroeste argentino",
+    descripcion: "Tejido a mano con técnicas ancestrales del noroeste argentino. Cada pieza es única e irrepetible, elaborada por artesanas con años de tradición.",
+    materiales: "Lana de llama y algodón natural",
+    cuidados: "Lavado a mano en agua fría · Secado a la sombra",
+    precioLanzamiento: 220,
+    precio: 250,
+    talles: ["Único"],
+    colores: ["Natural"],
+    imagen: "/allpa-f1.jpg",
+    linkMercadoPago: "https://link.mercadopago.com.ar/makiruna",
+    whatsapp: WHATSAPP,
+    disponible: true,
+  },
   // Para agregar una prenda, copiá el bloque de arriba y cambiá el id y los datos
 ];
 
@@ -236,6 +252,8 @@ export default function MakiRunaStore() {
         .det-nombre { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; line-height: 1.1; margin-bottom: 4px; }
         .det-sub { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gris); margin-bottom: 16px; }
         .det-precio { font-size: 24px; font-weight: 500; color: var(--terracota); margin-bottom: 20px; }
+        .precio-lanz { color: var(--terracota); }
+        .precio-normal-tachado { font-size: 0.65em; color: var(--gris); text-decoration: line-through; margin-left: 8px; font-weight: 300; }
         .divider { height: 1px; background: var(--arena); margin: 20px 0; }
         .det-desc { font-size: 14px; font-weight: 300; line-height: 1.75; margin-bottom: 20px; }
         .sel-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
@@ -373,7 +391,11 @@ export default function MakiRunaStore() {
                         <div className="card-nombre">{p.nombre}</div>
                         <div className="card-sub">{p.subtitulo}</div>
                         {p.disponible
-                          ? <div className="card-precio">{formatPrecio(p.precio)}</div>
+                          ? <div className="card-precio">
+                              {p.precioLanzamiento
+                                ? <><span className="precio-lanz">{formatPrecio(p.precioLanzamiento)}</span><span className="precio-normal-tachado">{formatPrecio(p.precio)}</span></>
+                                : formatPrecio(p.precio)}
+                            </div>
                           : <span className="badge-agotado">Agotado</span>
                         }
                       </div>
@@ -399,7 +421,11 @@ export default function MakiRunaStore() {
               <div className="det-eyebrow">Maki Runa · Artesanal</div>
               <h2 className="det-nombre">{productoActivo.nombre}</h2>
               <div className="det-sub">{productoActivo.subtitulo}</div>
-              <div className="det-precio">{formatPrecio(productoActivo.precio)}</div>
+              <div className="det-precio">
+                {productoActivo.precioLanzamiento
+                  ? <><span className="precio-lanz">{formatPrecio(productoActivo.precioLanzamiento)}</span><span className="precio-normal-tachado">{formatPrecio(productoActivo.precio)}</span></>
+                  : formatPrecio(productoActivo.precio)}
+              </div>
               <div className="divider" />
               <p className="det-desc">{productoActivo.descripcion}</p>
 
