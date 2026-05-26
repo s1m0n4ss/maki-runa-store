@@ -24,6 +24,26 @@ const PRODUCTOS = [
     whatsapp: WHATSAPP,
     disponible: true,
   },
+  {
+    id: 2,
+    nombre: "Allpa",
+    subtitulo: "Bolso artesanal · Noroeste argentino",
+    descripcion: "Tejido a mano con técnicas ancestrales del noroeste argentino. Cada pieza es única e irrepetible, elaborada por artesanas con años de tradición.",
+    materiales: "Lana de llama y algodón natural",
+    cuidados: "Lavado a mano en agua fría · Secado a la sombra",
+    precioLanzamiento: 220000,
+    precio: 250000,
+    talles: ["Único"],
+    colores: ["Natural"],
+    imagen: "/allpa-f1.jpg",
+    galeria: {
+      ella: ["/allpa-f1.jpg", "/allpa-f2.jpg", "/allpa-f3.jpg"],
+      el:   ["/allpa-m1.jpg", "/allpa-m2.jpg", "/allpa-m3.jpg"],
+    },
+    linkMercadoPago: "https://link.mercadopago.com.ar/makiruna",
+    whatsapp: WHATSAPP,
+    disponible: true,
+  },
   // Para agregar una prenda, copiá el bloque de arriba y cambiá el id y los datos
 ];
 
@@ -236,6 +256,13 @@ export default function MakiRunaStore() {
         .det-nombre { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; line-height: 1.1; margin-bottom: 4px; }
         .det-sub { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gris); margin-bottom: 16px; }
         .det-precio { font-size: 24px; font-weight: 500; color: var(--terracota); margin-bottom: 20px; }
+        .precio-lanz { color: var(--terracota); }
+        .precio-normal-tachado { font-size: 0.65em; color: var(--gris); text-decoration: line-through; margin-left: 8px; font-weight: 300; }
+        .galeria-section { padding: 0 24px 24px; background: var(--blanco); }
+        .galeria-grupo { margin-top: 20px; }
+        .galeria-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+        .galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+        .galeria-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
         .divider { height: 1px; background: var(--arena); margin: 20px 0; }
         .det-desc { font-size: 14px; font-weight: 300; line-height: 1.75; margin-bottom: 20px; }
         .sel-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
@@ -373,7 +400,11 @@ export default function MakiRunaStore() {
                         <div className="card-nombre">{p.nombre}</div>
                         <div className="card-sub">{p.subtitulo}</div>
                         {p.disponible
-                          ? <div className="card-precio">{formatPrecio(p.precio)}</div>
+                          ? <div className="card-precio">
+                              {p.precioLanzamiento
+                                ? <><span className="precio-lanz">{formatPrecio(p.precioLanzamiento)}</span><span className="precio-normal-tachado">{formatPrecio(p.precio)}</span></>
+                                : formatPrecio(p.precio)}
+                            </div>
                           : <span className="badge-agotado">Agotado</span>
                         }
                       </div>
@@ -399,7 +430,11 @@ export default function MakiRunaStore() {
               <div className="det-eyebrow">Maki Runa · Artesanal</div>
               <h2 className="det-nombre">{productoActivo.nombre}</h2>
               <div className="det-sub">{productoActivo.subtitulo}</div>
-              <div className="det-precio">{formatPrecio(productoActivo.precio)}</div>
+              <div className="det-precio">
+                {productoActivo.precioLanzamiento
+                  ? <><span className="precio-lanz">{formatPrecio(productoActivo.precioLanzamiento)}</span><span className="precio-normal-tachado">{formatPrecio(productoActivo.precio)}</span></>
+                  : formatPrecio(productoActivo.precio)}
+              </div>
               <div className="divider" />
               <p className="det-desc">{productoActivo.descripcion}</p>
 
@@ -425,6 +460,27 @@ export default function MakiRunaStore() {
                 {colorSeleccionado && <div className="extra-row"><div className="extra-key">Color</div><div className="extra-val">{colorSeleccionado}</div></div>}
               </div>
             </div>
+
+            {productoActivo.galeria && (
+              <div className="galeria-section">
+                <div className="galeria-grupo">
+                  <div className="galeria-label">Ella</div>
+                  <div className="galeria-grid">
+                    {productoActivo.galeria.ella.map((src, i) => (
+                      <img key={i} src={src} alt={`${productoActivo.nombre} ella ${i + 1}`} className="galeria-img" />
+                    ))}
+                  </div>
+                </div>
+                <div className="galeria-grupo">
+                  <div className="galeria-label">Él</div>
+                  <div className="galeria-grid">
+                    {productoActivo.galeria.el.map((src, i) => (
+                      <img key={i} src={src} alt={`${productoActivo.nombre} él ${i + 1}`} className="galeria-img" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="acciones">
               <a href={productoActivo.linkMercadoPago} target="_blank" rel="noopener noreferrer" className="btn-mp">
