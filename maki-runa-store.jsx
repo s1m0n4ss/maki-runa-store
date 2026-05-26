@@ -35,7 +35,7 @@ const PRODUCTOS = [
     precio: 250000,
     talles: ["Único"],
     colores: ["Natural"],
-    imagen: "/allpa-f1.jpg",
+    imagen: "/allpa-cover.png",
     galeria: {
       ella: ["/allpa-f1.jpg", "/allpa-f2.jpg", "/allpa-f3.jpg"],
       el:   ["/allpa-m1.jpg", "/allpa-m2.jpg", "/allpa-m3.jpg"],
@@ -245,7 +245,7 @@ export default function MakiRunaStore() {
         .badge-agotado { display: inline-block; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; background: var(--arena); color: var(--gris); padding: 2px 6px; }
 
         /* DETALLE */
-        .det-img { width: 100%; aspect-ratio: 3/4; max-height: 420px; object-fit: cover; display: block; }
+        .det-img { width: 100%; max-height: 480px; object-fit: cover; display: block; }
         .det-img-ph {
           width: 100%; aspect-ratio: 3/4; max-height: 420px;
           background: linear-gradient(160deg, var(--arena), #c9a07a, var(--terracota));
