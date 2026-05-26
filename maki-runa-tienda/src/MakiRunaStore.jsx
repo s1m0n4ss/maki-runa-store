@@ -43,6 +43,27 @@ const PRODUCTOS = [
     whatsapp: WHATSAPP,
     disponible: true,
   },
+  {
+    id: 3,
+    nombre: "Allpa",
+    subtitulo: "Ruana artesanal unisex · Salta, Argentina",
+    resenaNombre: "Allpa es una palabra quechua que significa tierra — el suelo fértil, vivo, que sostiene y nutre. En la cosmovisión andina, la tierra no es un recurso: es un ser sagrado, la Pachamama. Esta ruana lleva ese nombre porque nace de ella: lana de oveja teñida con nogal, tinte que la propia tierra entrega. Allpa es abrigo con raíces.",
+    descripcion: "Ruana recta elaborada en lana de oveja en un calibre de hilado 2/7, con tinte natural (nogal) y rayas en tonos gris y bicolor oscuro. Terminación simple. Una pieza unisex de carácter atemporal, pensada para quienes prefieren el abrigo con identidad.",
+    materiales: "100% lana de oveja · tinte natural nogal",
+    cuidados: "Lavar a mano con agua fría y jabón neutro o champú · No usar cloro · No centrifugar ni estrujar · Secar extendido a la sombra · Si se plancha a vapor, hacerlo a lo largo de los flecos · Si se plancha en seco, colocar siempre un trapo húmedo entre la plancha y la prenda",
+    galeria: {
+      ella: ["/allpa-f1.jpg", "/allpa-f2.jpg", "/allpa-f3.jpg"],
+      el:   ["/allpa-m1.jpg", "/allpa-m2.jpg", "/allpa-m3.jpg"],
+    },
+    medidas: "Talle único · Unisex",
+    precio: 169000,
+    precioHabitual: 189000,
+    talles: ["Único"],
+    colores: ["Natural nogal"],
+    linkMercadoPago: "https://mpago.la/2U7XqHJ",
+    whatsapp: WHATSAPP,
+    disponible: true,
+  },
 ];
 
 // ════════════════════════════════════════════════════
@@ -61,6 +82,7 @@ export default function MakiRunaStore() {
   const [colorSeleccionado, setColorSeleccionado] = useState("");
   const [fotoActiva, setFotoActiva] = useState(0);
   const [lightboxAbierto, setLightboxAbierto] = useState(false);
+  const [seccionGaleria, setSeccionGaleria] = useState("ella");
 
   const esSoloPrenda = PRODUCTOS.length === 1;
 
@@ -69,6 +91,7 @@ export default function MakiRunaStore() {
     setTalleSeleccionado(p.talles[0]);
     setColorSeleccionado(p.colores[0]);
     setFotoActiva(0);
+    setSeccionGaleria("ella");
     setVista("detalle");
     window.scrollTo(0, 0);
   };
@@ -314,6 +337,11 @@ export default function MakiRunaStore() {
           transition: opacity 0.2s, border-color 0.2s;
         }
         .det-thumb.active { opacity: 1; border-color: var(--terracota); }
+        .det-thumbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 6px; padding: 8px 0 0; }
+        .gal-tabs { display: flex; gap: 8px; padding: 10px 0 4px; }
+        .gal-tab { flex: 1; padding: 9px 0; border: 1px solid var(--arena); background: transparent; border-radius: 4px; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gris); cursor: pointer; transition: all 0.18s; }
+        .gal-tab.active { border-color: var(--tierra); color: var(--tierra); font-weight: 500; background: rgba(196,149,106,0.07); }
+        .det-resena { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.88rem; line-height: 1.75; color: var(--gris); padding: 12px 0 4px; border-left: 2px solid var(--arena); padding-left: 14px; margin: 12px 0; }
 
         /* LIGHTBOX */
         .lightbox {
@@ -449,33 +477,42 @@ export default function MakiRunaStore() {
         {/* ══ VISTA DETALLE ══ */}
         {vista === "detalle" && productoActivo && (
           <div className="fade-up">
-            {productoActivo.imagenes?.length ? (
-              <div className="det-gallery">
-                {/* Imagen principal: solo muestra la foto activa */}
-                <img
-                  src={productoActivo.imagenes[fotoActiva]}
-                  alt={productoActivo.nombre}
-                  className="det-main-img"
-                  onClick={() => setLightboxAbierto(true)}
-                />
-                {/* Miniaturas: 4 fijas, sin map */}
-                <div className="det-thumbs">
-                  <img src={productoActivo.imagenes[0]} alt="Foto 1" onClick={() => setFotoActiva(0)}
-                    className={`det-thumb${fotoActiva === 0 ? " active" : ""}`} />
-                  <img src={productoActivo.imagenes[1]} alt="Foto 2" onClick={() => setFotoActiva(1)}
-                    className={`det-thumb${fotoActiva === 1 ? " active" : ""}`} />
-                  <img src={productoActivo.imagenes[2]} alt="Foto 3" onClick={() => setFotoActiva(2)}
-                    className={`det-thumb${fotoActiva === 2 ? " active" : ""}`} />
-                  <img src={productoActivo.imagenes[3]} alt="Foto 4" onClick={() => setFotoActiva(3)}
-                    className={`det-thumb${fotoActiva === 3 ? " active" : ""}`} />
+            {(() => {
+              const imgs = productoActivo.galeria
+                ? productoActivo.galeria[seccionGaleria]
+                : productoActivo.imagenes;
+              if (!imgs?.length) return (
+                <div className="det-img-ph">
+                  <LogoImg className="det-ph-logo" />
+                  <div className="det-ph-text">Foto próximamente</div>
                 </div>
-              </div>
-            ) : (
-              <div className="det-img-ph">
-                <LogoImg className="det-ph-logo" />
-                <div className="det-ph-text">Foto próximamente</div>
-              </div>
-            )}
+              );
+              return (
+                <div className="det-gallery">
+                  {productoActivo.galeria && (
+                    <div className="gal-tabs">
+                      <button className={`gal-tab${seccionGaleria === "ella" ? " active" : ""}`}
+                        onClick={() => { setSeccionGaleria("ella"); setFotoActiva(0); }}>Ella</button>
+                      <button className={`gal-tab${seccionGaleria === "el" ? " active" : ""}`}
+                        onClick={() => { setSeccionGaleria("el"); setFotoActiva(0); }}>Él</button>
+                    </div>
+                  )}
+                  <img
+                    src={imgs[fotoActiva]}
+                    alt={productoActivo.nombre}
+                    className="det-main-img"
+                    onClick={() => setLightboxAbierto(true)}
+                  />
+                  <div className="det-thumbs">
+                    {imgs.map((src, idx) => (
+                      <img key={idx} src={src} alt={`Foto ${idx + 1}`}
+                        onClick={() => setFotoActiva(idx)}
+                        className={`det-thumb${fotoActiva === idx ? " active" : ""}`} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
             <div className="det-body">
               <div className="det-eyebrow">Maki Runa · Artesanal</div>
               <h2 className="det-nombre">{productoActivo.nombre}</h2>
@@ -488,6 +525,9 @@ export default function MakiRunaStore() {
                 )}
               </div>
               <div className="divider" />
+              {productoActivo.resenaNombre && (
+                <p className="det-resena">{productoActivo.resenaNombre}</p>
+              )}
               <p className="det-desc">{productoActivo.descripcion}</p>
 
               <div className="sel-label">Talle</div>
@@ -537,19 +577,20 @@ export default function MakiRunaStore() {
 
       </div>
 
-      {lightboxAbierto && productoActivo?.imagenes && (
-        <div className="lightbox" onClick={() => setLightboxAbierto(false)}>
-          <img
-            src={productoActivo.imagenes[fotoActiva]}
-            alt=""
-            className="lightbox-img"
-            onClick={e => e.stopPropagation()}
-          />
-          <button className="lightbox-close" onClick={() => setLightboxAbierto(false)}>✕</button>
-          <button className="lightbox-nav lightbox-prev" onClick={e => { e.stopPropagation(); setFotoActiva(n => (n - 1 + productoActivo.imagenes.length) % productoActivo.imagenes.length); }}>‹</button>
-          <button className="lightbox-nav lightbox-next" onClick={e => { e.stopPropagation(); setFotoActiva(n => (n + 1) % productoActivo.imagenes.length); }}>›</button>
-        </div>
-      )}
+      {lightboxAbierto && productoActivo && (() => {
+        const imgs = productoActivo.galeria
+          ? productoActivo.galeria[seccionGaleria]
+          : productoActivo.imagenes;
+        if (!imgs?.length) return null;
+        return (
+          <div className="lightbox" onClick={() => setLightboxAbierto(false)}>
+            <img src={imgs[fotoActiva]} alt="" className="lightbox-img" onClick={e => e.stopPropagation()} />
+            <button className="lightbox-close" onClick={() => setLightboxAbierto(false)}>✕</button>
+            <button className="lightbox-nav lightbox-prev" onClick={e => { e.stopPropagation(); setFotoActiva(n => (n - 1 + imgs.length) % imgs.length); }}>‹</button>
+            <button className="lightbox-nav lightbox-next" onClick={e => { e.stopPropagation(); setFotoActiva(n => (n + 1) % imgs.length); }}>›</button>
+          </div>
+        );
+      })()}
     </>
   );
 }
