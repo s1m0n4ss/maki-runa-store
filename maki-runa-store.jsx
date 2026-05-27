@@ -61,6 +61,7 @@ export default function MakiRunaStore() {
   const [productoActivo, setProductoActivo] = useState(null);
   const [talleSeleccionado, setTalleSeleccionado] = useState("");
   const [colorSeleccionado, setColorSeleccionado] = useState("");
+  const [seccionGaleria, setSeccionGaleria] = useState("ella");
 
   const esSoloPrenda = PRODUCTOS.length === 1;
 
@@ -68,6 +69,7 @@ export default function MakiRunaStore() {
     setProductoActivo(p);
     setTalleSeleccionado(p.talles[0]);
     setColorSeleccionado(p.colores[0]);
+    setSeccionGaleria("ella");
     setVista("detalle");
     window.scrollTo(0, 0);
   };
@@ -243,7 +245,7 @@ export default function MakiRunaStore() {
         .badge-agotado { display: inline-block; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; background: var(--arena); color: var(--gris); padding: 2px 6px; }
 
         /* DETALLE */
-        .det-img { width: 100%; aspect-ratio: 3/4; max-height: 420px; object-fit: cover; display: block; }
+        .det-img { width: 100%; max-height: 480px; object-fit: cover; display: block; }
         .det-img-ph {
           width: 100%; aspect-ratio: 3/4; max-height: 420px;
           background: linear-gradient(160deg, var(--arena), #c9a07a, var(--terracota));
@@ -259,9 +261,10 @@ export default function MakiRunaStore() {
         .precio-lanz { color: var(--terracota); }
         .precio-normal-tachado { font-size: 0.65em; color: var(--gris); text-decoration: line-through; margin-left: 8px; font-weight: 300; }
         .galeria-section { padding: 0 24px 24px; background: var(--blanco); }
-        .galeria-grupo { margin-top: 20px; }
-        .galeria-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
-        .galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+        .galeria-tabs { display: flex; margin-top: 20px; border-bottom: 1px solid var(--arena); }
+        .galeria-tab { flex: 1; background: none; border: none; border-bottom: 2px solid transparent; padding: 8px 0; font-family: 'Jost', sans-serif; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gris); cursor: pointer; transition: color 0.2s, border-color 0.2s; margin-bottom: -1px; }
+        .galeria-tab.active { color: var(--carbon); border-bottom-color: var(--terracota); }
+        .galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 12px; }
         .galeria-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
         .divider { height: 1px; background: var(--arena); margin: 20px 0; }
         .det-desc { font-size: 14px; font-weight: 300; line-height: 1.75; margin-bottom: 20px; }
@@ -463,21 +466,18 @@ export default function MakiRunaStore() {
 
             {productoActivo.galeria && (
               <div className="galeria-section">
-                <div className="galeria-grupo">
-                  <div className="galeria-label">Ella</div>
-                  <div className="galeria-grid">
-                    {productoActivo.galeria.ella.map((src, i) => (
-                      <img key={i} src={src} alt={`${productoActivo.nombre} ella ${i + 1}`} className="galeria-img" />
-                    ))}
-                  </div>
+                <div className="galeria-tabs">
+                  {productoActivo.galeria.ella && (
+                    <button className={`galeria-tab ${seccionGaleria==="ella"?"active":""}`} onClick={()=>setSeccionGaleria("ella")}>Ella</button>
+                  )}
+                  {productoActivo.galeria.el && (
+                    <button className={`galeria-tab ${seccionGaleria==="el"?"active":""}`} onClick={()=>setSeccionGaleria("el")}>Él</button>
+                  )}
                 </div>
-                <div className="galeria-grupo">
-                  <div className="galeria-label">Él</div>
-                  <div className="galeria-grid">
-                    {productoActivo.galeria.el.map((src, i) => (
-                      <img key={i} src={src} alt={`${productoActivo.nombre} él ${i + 1}`} className="galeria-img" />
-                    ))}
-                  </div>
+                <div className="galeria-grid">
+                  {(productoActivo.galeria[seccionGaleria] || []).map((src, i) => (
+                    <img key={i} src={src} alt={`${productoActivo.nombre} ${seccionGaleria} ${i + 1}`} className="galeria-img" />
+                  ))}
                 </div>
               </div>
             )}
