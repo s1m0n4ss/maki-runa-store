@@ -602,7 +602,7 @@ export default function MakiRunaStore() {
 
             <div className="acciones">
               <a href={productoActivo.linkMercadoPago} target="_blank" rel="noopener noreferrer" className="btn-mp">
-                <img src="/logo-mercadopago.svg" alt="Mercado Pago" className="logo-mp" />
+                <img src="/mercado-pago-seeklogo.png" alt="Mercado Pago" className="logo-mp" />
                 COMPRAR CON MERCADO PAGO
               </a>
               <p className="cuotas-note">Pagá en cuotas · Todos los medios de pago</p>
