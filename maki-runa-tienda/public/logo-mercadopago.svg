@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <clipPath id="c">
+      <ellipse cx="200" cy="175" rx="185" ry="160"/>
+    </clipPath>
+  </defs>
+  <!-- Oval fill: celeste top, white center, celeste bottom -->
+  <ellipse cx="200" cy="175" rx="185" ry="160" fill="#00AEEF"/>
+  <rect x="15" y="148" width="370" height="58" fill="white" clip-path="url(#c)"/>
+  <!-- Hands group -->
+  <g clip-path="url(#c)">
+    <!-- Left hand (dark blue) -->
+    <path d="M105 177 C108 155 125 140 148 138 L178 136 C184 135 190 139 189 146 L188 150
+             C196 147 205 148 206 155 L206 158
+             C214 155 223 157 222 165 L221 169
+             C229 170 232 178 227 185 L210 195
+             C198 201 183 204 165 203 L145 202
+             C128 200 115 191 108 180 Z"
+          fill="#1A1462"/>
+    <!-- Knuckle bumps left -->
+    <circle cx="193" cy="153" r="5" fill="#1A1462" opacity="0.6"/>
+    <circle cx="207" cy="160" r="5" fill="#1A1462" opacity="0.6"/>
+    <circle cx="218" cy="168" r="5" fill="#1A1462" opacity="0.6"/>
+    <!-- Right hand (white) -->
+    <path d="M295 177 C292 155 275 140 252 138 L222 136 C216 135 210 139 211 146 L212 150
+             C204 147 195 148 194 155 L194 158
+             C186 155 177 157 178 165 L179 169
+             C171 170 168 178 173 185 L190 195
+             C202 201 217 204 235 203 L255 202
+             C272 200 285 191 292 180 Z"
+          fill="white"/>
+    <!-- Knuckle bumps right -->
+    <circle cx="207" cy="153" r="5" fill="#1A1462" opacity="0.3"/>
+    <circle cx="193" cy="160" r="5" fill="#1A1462" opacity="0.3"/>
+  </g>
+  <!-- Oval border -->
+  <ellipse cx="200" cy="175" rx="185" ry="160" fill="none" stroke="#1A1462" stroke-width="12"/>
+</svg>

@@ -65,6 +65,23 @@ const PRODUCTOS = [
     whatsapp: WHATSAPP,
     disponible: true,
   },
+  {
+    id: 4,
+    nombre: "Wayra",
+    subtitulo: "Pashmina artesanal · Salta, Argentina",
+    descripcion: "Wayra significa viento, en quechua. Tejida artesanalmente en lana de oveja, combina su tono natural con una banda profunda en azul y matices en rosa antiguo que dialogan con la luz del atardecer en los valles. Una pieza creada en telar, donde cada hilo guarda la huella de manos que conocen el oficio del norte argentino.",
+    materiales: "100% lana de oveja",
+    cuidados: "Lavar a mano con jabón neutro o especial para lana · No usar cloro · Lavar colores por separado · No centrifugar ni estrujar · Secar extendido a la sombra · Planchar suave con un paño apenas húmedo · También puede limpiarse a seco",
+    imagenes: ["/wayra-principal.jpg", "/wayra-estudio.jpg", "/wayra-galeria.jpg", "/wayra-calle.jpg", "/wayra-plaza.jpg"],
+    medidas: "190 cm de largo · 70 cm de ancho",
+    precio: 169000,
+    precioHabitual: 189000,
+    talles: ["Único"],
+    colores: ["Rosa antiguo · Azul profundo · Crudo natural"],
+    linkMercadoPago: "https://mpago.la/2U7XqHJ",
+    whatsapp: WHATSAPP,
+    disponible: true,
+  },
 ];
 
 // ════════════════════════════════════════════════════
@@ -304,6 +321,7 @@ export default function MakiRunaStore() {
           cursor: pointer; text-decoration: none; transition: background 0.2s;
         }
         .btn-mp:hover { background: #8f4d2e; }
+        .logo-mp { height: 24px; width: auto; background: #fff; border-radius: 50%; padding: 3px; }
         .btn-wa {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           background: transparent; color: var(--carbon);
@@ -584,8 +602,8 @@ export default function MakiRunaStore() {
 
             <div className="acciones">
               <a href={productoActivo.linkMercadoPago} target="_blank" rel="noopener noreferrer" className="btn-mp">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z" fill="currentColor"/></svg>
-                Comprar con Mercado Pago
+                <img src="/logo-mercadopago.svg" alt="Mercado Pago" className="logo-mp" />
+                COMPRAR CON MERCADO PAGO
               </a>
               <p className="cuotas-note">Pagá en cuotas · Todos los medios de pago</p>
               <a href={`https://wa.me/${productoActivo.whatsapp}?text=${encodeURIComponent("Hola! Me interesa el "+productoActivo.nombre+" de Maki Runa 🌿")}`} target="_blank" rel="noopener noreferrer" className="btn-wa">
