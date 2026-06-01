@@ -72,7 +72,7 @@ const PRODUCTOS = [
     descripcion: "Wayra significa viento, en quechua. Tejida artesanalmente en lana de oveja, combina su tono natural con una banda profunda en azul y matices en rosa antiguo que dialogan con la luz del atardecer en los valles. Una pieza creada en telar, donde cada hilo guarda la huella de manos que conocen el oficio del norte argentino.",
     materiales: "100% lana de oveja",
     cuidados: "Lavar a mano con jabón neutro o especial para lana · No usar cloro · Lavar colores por separado · No centrifugar ni estrujar · Secar extendido a la sombra · Planchar suave con un paño apenas húmedo · También puede limpiarse a seco",
-    imagenes: ["/wayra-principal.jpg", "/wayra-estudio.jpg", "/wayra-galeria.jpg", "/wayra-calle.jpg", "/wayra-plaza.jpg"],
+    imagenes: ["/wayra-estudio.jpg", "/wayra-galeria.jpg", "/wayra-calle.jpg", "/wayra-plaza.jpg"],
     medidas: "190 cm de largo · 70 cm de ancho",
     precio: 169000,
     precioHabitual: 189000,
